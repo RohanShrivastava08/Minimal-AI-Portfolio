@@ -11,38 +11,66 @@ export default async function handler(req, res) {
 
   const API_KEY = process.env.GEMINI_API_KEY
 
+  // ---- COMPRESSED, CLEAR PROMPT (VERY IMPORTANT) ----
   const prompt = `
-You are Rohan Shrivastava’s professional portfolio assistant.
+You are a professional AI assistant for a developer portfolio.
 
 Rules:
-- Answer ONLY using the portfolio data below
-- Be concise, factual, and professional
-- Do NOT invent skills or experience
-- If something is not mentioned, say so politely
+- Answer ONLY using the information provided below
+- Be concise, clear, and professional
+- Do NOT invent or assume anything
+- If information is missing, say "That information is not mentioned"
 
-Portfolio Data:
-${JSON.stringify(resumeData, null, 2)}
+Portfolio Info:
+Name: ${resumeData.name}
+Role: ${resumeData.role}
+
+Projects:
+${resumeData.projects.map(p => `- ${p.name}: ${p.description}`).join("\n")}
+
+Skills:
+${Object.values(resumeData.skills).flat().join(", ")}
+
+Experience:
+${resumeData.experience.map(e => `- ${e.role} at ${e.company}`).join("\n")}
+
+Education:
+${resumeData.education.map(e => `- ${e.detail} at ${e.institute}`).join("\n")}
 
 Question:
 ${question}
 `
 
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-      }),
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: prompt }],
+            },
+          ],
+        }),
+      }
+    )
+
+    const data = await response.json()
+
+    // ---- SAFE PARSING (THIS FIXES YOUR ISSUE) ----
+    let answer = "That information is not mentioned."
+
+    const parts = data?.candidates?.[0]?.content?.parts
+    if (Array.isArray(parts)) {
+      const text = parts.map(p => p.text).filter(Boolean).join("\n")
+      if (text.trim()) answer = text
     }
-  )
 
-  const data = await response.json()
-
-  return res.status(200).json({
-    answer:
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "Sorry, I couldn’t find that information.",
-  })
+    return res.status(200).json({ answer })
+  } catch (error) {
+    console.error("Gemini API error:", error)
+    return res.status(500).json({ error: "Gemini request failed" })
+  }
 }
