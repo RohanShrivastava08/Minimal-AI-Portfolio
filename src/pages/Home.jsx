@@ -107,7 +107,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ===== FLOATING AI ASSISTANT ===== */}
+ {/* ===== FLOATING AI ASSISTANT ===== */}
       <PortfolioAssistant />
     </>
   )

@@ -10,60 +10,78 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Invalid request" })
   }
 
-  const prompt = `
-You are an AI assistant for a developer portfolio.
-
-Rules:
-- Answer ONLY using the portfolio data below
-- Be clear, professional, and concise
-- Do NOT invent anything
-- If info is missing, say "That information is not mentioned"
-
-Portfolio:
+  // ---- STRONG, CLEAR CONTEXT ----
+  const context = `
 Name: ${resumeData.name}
 Role: ${resumeData.role}
 
+Summary:
+${resumeData.summary}
+
 Projects:
-${resumeData.projects.map(p => `- ${p.name}: ${p.description}`).join("\n")}
+${resumeData.projects
+  .map(p => `- ${p.name}: ${p.description}`)
+  .join("\n")}
 
 Skills:
-${Object.values(resumeData.skills).flat().join(", ")}
+Frontend: ${resumeData.skills.frontend.join(", ")}
+UI/UX: ${resumeData.skills.uiux.join(", ")}
+Backend: ${resumeData.skills.backend.join(", ")}
+Tools: ${resumeData.skills.tools.join(", ")}
+AI Tools: ${resumeData.skills.ai.join(", ")}
 
 Experience:
-${resumeData.experience.map(e => `- ${e.role} at ${e.company}`).join("\n")}
+${resumeData.experience
+  .map(e => `- ${e.role} at ${e.company} (${e.duration})`)
+  .join("\n")}
 
-Question:
-${question}
+Education:
+${resumeData.education
+  .map(e => `- ${e.detail} at ${e.institute}`)
+  .join("\n")}
+
+Volunteering:
+${resumeData.volunteer
+  .map(v => `- ${v.role} at ${v.organization}`)
+  .join("\n")}
 `
 
   try {
-    const response = await fetch(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: [
-            { role: "system", content: "You are a helpful assistant." },
-            { role: "user", content: prompt },
-          ],
-          temperature: 0.2,
-        }),
-      }
-    )
+    const response = await fetch("https://api.openai.com/v1/responses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        input: [
+          {
+            role: "system",
+            content:
+              "You are a professional portfolio assistant. If the answer exists in the data, answer clearly. If not, say: That information is not mentioned.",
+          },
+          {
+            role: "user",
+            content: `Portfolio Data:\n${context}\n\nQuestion:\n${question}`,
+          },
+        ],
+        temperature: 0,
+      }),
+    })
 
     const data = await response.json()
 
     const answer =
-      data?.choices?.[0]?.message?.content ||
+      data?.output_text ||
       "That information is not mentioned."
 
+      console.log("OPENAI RAW RESPONSE:", JSON.stringify(data, null, 2))
+
+
     return res.status(200).json({ answer })
-  } catch (err) {
+  } catch (error) {
+    console.error(error)
     return res.status(500).json({ error: "OpenAI request failed" })
   }
 }
