@@ -1,24 +1,26 @@
-import { useEffect, useState } from "react"
-import Navbar from "./components/Navbar"
-import Hero from "./sections/Hero"
-import Experience from "./sections/Experience"
+import { Routes, Route } from "react-router-dom"
+import Layout from "./layout/Layout"
+import Home from "./pages/Home"
+import Experience from "./pages/Experience"
+import Projects from "./pages/Projects"
+import Skills from "./pages/Skills"
+import Education from "./pages/Education"
+import Volunteer from "./pages/Volunteer"
+import Contact from "./pages/Contact"
 
 function App() {
-  const [theme, setTheme] = useState("light")
-
-  useEffect(() => {
-    const root = document.documentElement
-    theme === "dark"
-      ? root.classList.add("dark")
-      : root.classList.remove("dark")
-  }, [theme])
-
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors">
-      <Navbar theme={theme} setTheme={setTheme} />
-      <Hero />
-      <Experience />
-    </div>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/experience" element={<Experience />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/education" element={<Education />} />
+        <Route path="/volunteer" element={<Volunteer />} />
+        <Route path="/contact" element={<Contact />} />
+      </Route>
+    </Routes>
   )
 }
 
