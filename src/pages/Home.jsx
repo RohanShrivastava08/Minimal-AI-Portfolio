@@ -1,6 +1,7 @@
 import { resumeData } from "../data/resumeData"
 import { Linkedin, Github, Users, PenLine } from "lucide-react"
 import { Link } from "react-router-dom"
+import AiAssistant from "../ai/AiAssistant"
 
 function Home() {
   const { name, links = {} } = resumeData
@@ -106,6 +107,7 @@ function Home() {
         </div>
       </section>
 
+            <AiAssistant />
     </>
   )
 }
