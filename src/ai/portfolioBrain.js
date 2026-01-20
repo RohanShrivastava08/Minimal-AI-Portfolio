@@ -1,95 +1,62 @@
 export function askPortfolio(question, resumeData) {
   const q = question.toLowerCase()
 
-  // GREETINGS / RANDOM
-  if (
-    q.includes("hi") ||
-    q.includes("hello") ||
-    q.includes("hey") ||
-    q.includes("who are you")
-  ) {
-    return (
-      `Hi 👋 I'm a portfolio assistant for ${resumeData.name}.\n\n` +
-      `You can ask me about his projects, skills, experience, education, or volunteering work.`
-    )
+  if (q.includes("hi") || q.includes("hello") || q.includes("hey")) {
+    return `Hi 👋 I'm an interactive assistant for ${resumeData.name}.
+You can ask me about projects, skills, experience, or education.`
   }
 
-  // GENERAL INTRO
   if (q.includes("about") || q.includes("yourself")) {
     return resumeData.summary
   }
 
-  // PROJECTS
-  if (q.includes("project") || q.includes("build")) {
+  if (q.includes("project")) {
     return (
-      "Here are some projects he has worked on:\n\n" +
+      "Here are some projects I've worked on:\n\n" +
       resumeData.projects
         .map(p => `• ${p.name} — ${p.description}`)
         .join("\n\n")
     )
   }
 
-  // SKILLS / TECH STACK
-  if (
-    q.includes("skill") ||
-    q.includes("technology") ||
-    q.includes("tech") ||
-    q.includes("stack")
-  ) {
+  if (q.includes("skill") || q.includes("tech")) {
     return (
-      "His primary technical skills include:\n\n" +
+      "My technical skillset includes:\n\n" +
       Object.entries(resumeData.skills)
-        .map(
-          ([category, items]) =>
-            `${category.toUpperCase()}: ${items.join(", ")}`
-        )
+        .map(([k, v]) => `${k.toUpperCase()}: ${v.join(", ")}`)
         .join("\n\n")
     )
   }
 
-  // EXPERIENCE
-  if (
-    q.includes("experience") ||
-    q.includes("work") ||
-    q.includes("intern") ||
-    q.includes("company")
-  ) {
+  if (q.includes("experience") || q.includes("work")) {
     return (
-      "Here’s a snapshot of his professional experience:\n\n" +
+      "Here’s a snapshot of my experience:\n\n" +
       resumeData.experience
         .map(e => `• ${e.role} at ${e.company}`)
         .join("\n")
     )
   }
 
-  // EDUCATION
-  if (q.includes("education") || q.includes("degree") || q.includes("college")) {
+  if (q.includes("education")) {
     return (
-      "Educational background:\n\n" +
-      resumeData.education
-        .map(e => `• ${e.detail}`)
-        .join("\n")
+      "My education:\n\n" +
+      resumeData.education.map(e => `• ${e.detail}`).join("\n")
     )
   }
 
-  // VOLUNTEERING
-  if (q.includes("volunteer") || q.includes("community")) {
+  if (q.includes("volunteer")) {
     return (
-      "He has also been active in community and volunteering roles:\n\n" +
+      "Community & volunteering:\n\n" +
       resumeData.volunteer
         .map(v => `• ${v.role} at ${v.organization}`)
         .join("\n")
     )
   }
 
-  // DEFAULT SMART FALLBACK
   return (
-    "That’s a good question 🙂\n\n" +
+    "That’s a thoughtful question 🙂\n\n" +
     "You can ask me about:\n" +
-    "• Projects he has built\n" +
-    "• Technologies and skills\n" +
-    "• Work experience\n" +
-    "• Education or volunteering\n\n" +
-    "Try something like: “What projects has Rohan built?”"
+    "• Projects\n• Skills\n• Experience\n• Education\n\n" +
+    "Try: “What projects have you built?”"
   )
 }
