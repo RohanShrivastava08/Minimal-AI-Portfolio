@@ -22,7 +22,6 @@ function PortfolioAssistant() {
         },
         body: JSON.stringify({
           question: input,
-          resumeData,
         }),
       })
 
