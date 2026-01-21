@@ -4,31 +4,57 @@ function Experience() {
   const { experience = [] } = resumeData
 
   return (
-    <section className="max-w-4xl mx-auto">
+    <section className="max-w-4xl mx-auto px-6">
 
-      {/* Page Header (CENTERED) */}
-      <header className="mb-20 text-center">
+      {/* Header */}
+      <header className="mb-28 text-center">
         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
           Experience
         </h1>
-        <p className="mt-4 mx-auto max-w-2xl text-neutral-600 dark:text-neutral-400">
-          A snapshot of my professional journey, internships, and hands-on
-          experience building real-world web applications.
+
+        <p className="mt-4 mx-auto max-w-2xl
+                      text-neutral-600 dark:text-neutral-400
+                      leading-relaxed">
+          A brief overview of where I’ve worked and the kind of impact
+          I’ve made while building production-ready applications.
         </p>
       </header>
 
-      {/* Experience List */}
-      <div className="space-y-14">
+      {/* Experience blocks */}
+      <div className="space-y-24">
         {experience.map((item, index) => (
-          <div key={index} className="flex flex-col gap-4">
+          <article
+            key={index}
+            className="relative pl-8"
+          >
+            {/* Left accent */}
+            <span
+              className="absolute left-0 top-1
+                         h-full w-px
+                         bg-neutral-200 dark:bg-neutral-800"
+            />
 
-            {/* Role + Company + Duration */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            {/* Index number */}
+            <span
+              className="absolute -left-1 top-0
+                         text-xs font-medium
+                         text-neutral-400 dark:text-neutral-500"
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
+
+            {/* Top row */}
+            <div className="flex flex-col sm:flex-row
+                            sm:items-baseline sm:justify-between
+                            gap-3">
+
               <div>
-                <h2 className="text-lg font-medium">
+                <h2 className="text-lg font-medium tracking-tight">
                   {item.role}
                 </h2>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+
+                <p className="mt-1 text-sm
+                              text-neutral-600 dark:text-neutral-400">
                   {item.company}
                 </p>
               </div>
@@ -38,14 +64,19 @@ function Experience() {
               </span>
             </div>
 
-            {/* Details */}
-            <ul className="list-disc list-inside space-y-2 text-sm leading-relaxed
-                           text-neutral-700 dark:text-neutral-300 max-w-3xl">
+            {/* Description */}
+            <div className="mt-6 space-y-3 max-w-3xl">
               {item.details.map((point, idx) => (
-                <li key={idx}>{point}</li>
+                <p
+                  key={idx}
+                  className="text-sm leading-relaxed
+                             text-neutral-700 dark:text-neutral-300"
+                >
+                  {point}
+                </p>
               ))}
-            </ul>
-          </div>
+            </div>
+          </article>
         ))}
       </div>
     </section>
