@@ -9,22 +9,32 @@ function Home() {
 
   return (
     <>
-      {/* ===== MAIN HOME CONTENT ===== */}
-      <section className="min-h-[85vh] flex items-center justify-center">
+      {/* ===== HERO SECTION ===== */}
+      <section className="min-h-[90vh] flex items-center justify-center">
         <div className="text-center max-w-3xl px-6">
 
-          {/* Intro */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight">
-            Hi, I’m {firstName}
-          </h1>
-
-          <p className="mt-6 text-lg sm:text-xl leading-relaxed
-                        text-neutral-600 dark:text-neutral-400">
-            I design and build minimal, high-performance web experiences  
-            with a strong focus on clarity and usability.
+          {/* Subtle intro line */}
+          <p className="text-sm tracking-wide uppercase text-neutral-500
+                        dark:text-neutral-400">
+            Web & Software Developer
           </p>
 
-          {/* Social icons */}
+          {/* Name */}
+          <h1 className="mt-4 text-4xl sm:text-5xl md:text-6xl
+                         font-semibold tracking-tight">
+            Hi, I’m <span className="text-neutral-900 dark:text-neutral-100">{firstName}</span>
+          </h1>
+
+          {/* Description */}
+          <p
+            className="mt-6 text-base sm:text-lg leading-relaxed
+                       text-neutral-600 dark:text-neutral-400"
+          >
+            I design and build minimal, high-performance web experiences
+            focused on clarity, usability, and long-term maintainability.
+          </p>
+
+          {/* Social links */}
           <div className="mt-10 flex justify-center items-center gap-8">
             {links.linkedin && (
               <a
@@ -80,7 +90,7 @@ function Home() {
           </div>
 
           {/* CTA buttons */}
-          <div className="mt-12 flex justify-center gap-4">
+          <div className="mt-14 flex justify-center gap-4">
             <Link
               to="/projects"
               className="px-6 py-3 text-sm font-medium rounded-md
@@ -107,7 +117,8 @@ function Home() {
         </div>
       </section>
 
-            <AiAssistant />
+      {/* ===== FLOATING ASSISTANT ===== */}
+      <AiAssistant />
     </>
   )
 }
