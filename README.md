@@ -1,16 +1,90 @@
-# React + Vite
+# 🚀 Minimal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, minimal, and thoughtfully designed personal portfolio built to showcase my work, experience, and skills in a clear and professional way.
 
-Currently, two official plugins are available:
+This portfolio focuses on **clarity over clutter**, **content over decoration**, and a **recruiter-first experience**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Highlights
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ⚡ Built with **Vite + React** for fast performance
+- 🎨 Styled using **Tailwind CSS** with a minimal design system
+- 🌗 Light & Dark mode support
+- 🧭 Clean multi-page navigation using **React Router**
+- 📱 Fully responsive across devices
+- 🧠 Smart **rule-based Portfolio Assistant** (no external AI dependency)
+- 🧩 Clean, structured, and reusable component architecture
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+- **Frontend:** React, Vite  
+- **Styling:** Tailwind CSS  
+- **Routing:** React Router  
+- **Icons:** Lucide React  
+- **Deployment:** Vercel  
+
+---
+
+## 📂 Project Structure
+
+src/
+├── components/ # Shared UI components
+├── pages/ # Home, Experience, Projects, Skills, etc.
+├── data/ # Centralized resume data
+├── ai/ # Portfolio Assistant logic
+├── App.jsx
+├── main.jsx
+
+---
+
+
+---
+
+## 📄 Pages Overview
+
+- **Home** – Introduction, social links, and call-to-action
+- **Experience** – Internships and professional experience
+- **Projects** – Selected projects with impact and metrics
+- **Skills** – Categorized technical skills
+- **Education** – Academic background
+- **Volunteering** – Leadership and community work
+- **Contact** – Direct email and social links
+
+---
+
+## 🤖 Portfolio Assistant
+
+This portfolio includes a **rule-based assistant** that answers questions using predefined resume data.
+
+Why rule-based instead of API-based AI?
+
+- No API limits or failures
+- Instant responses
+- Privacy-friendly
+- Demonstrates logical thinking and UX design
+- Stable in production
+
+This choice keeps the portfolio **reliable, fast, and professional**.
+
+---
+
+## 🎯 Design Philosophy
+
+- Minimal and distraction-free UI
+- Strong visual hierarchy
+- Consistent spacing and typography
+- Content-driven sections
+- Designed to be scanned quickly by recruiters
+
+---
+
+## 🚀 Getting Started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/your-username/minimal-ai-portfolio.git
+cd minimal-ai-portfolio
