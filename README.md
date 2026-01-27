@@ -1,8 +1,8 @@
 # 🚀 Minimal Portfolio
 
-A clean, minimal, and thoughtfully designed personal portfolio built to showcase my work, experience, and skills in a clear and professional way.
+- A clean, minimal, and thoughtfully designed personal portfolio built to showcase my work, experience, and skills in a clear and professional way.
 
-This portfolio focuses on **clarity over clutter**, **content over decoration**, and a **recruiter-first experience**.
+- This portfolio focuses on **clarity over clutter**, **content over decoration**, and a **recruiter-first experience**.
 
 ---
 
